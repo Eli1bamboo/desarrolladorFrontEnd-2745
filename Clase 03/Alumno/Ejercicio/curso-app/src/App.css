@@ -1,0 +1,11 @@
+header {
+  display: block;
+  text-align: center;
+  padding: 1em 0;
+  background: red;
+}
+.container {
+  width: 100%;
+  max-width: 60%;
+  margin: 0 auto;
+}

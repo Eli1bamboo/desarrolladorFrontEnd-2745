@@ -16,7 +16,7 @@ class User {
 
   get userDetails () {
     let phones = this._telephones.reduce((a, b) => {
-      return `${JSON.stringify(a)} / ${JSON.stringify(b)}`
+      return `${b.number || b} / ${a.number}`
     })
     return `Nombre: ${this._name} Apellido: ${this._lastName} Dni: ${this._dni} Telefonos: ${phones}`
   }
@@ -59,6 +59,9 @@ var studentsList = [
   }
 ]
 
-var UserArr = studentsList.map((student) => student)
+var UserArr = studentsList.map(
+  (student) => new User(student.firstName, student.lastName, student.dni, student.isAdmin, student.telephones)
+)
 
 console.log(`Array de estudiantes: ${JSON.stringify(UserArr)}`)
+console.log(`Detalle de estudiante: ${UserArr[1].userDetails}`)
