@@ -2,7 +2,17 @@ import React, { Component } from 'react'
 import PokemonList from './PokemonList'
 import PokemonDetail from './PokemonDetail'
 
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+
 import { request } from './utils'
+
+import pokedex from './reducers'
+
+let store = createStore(
+  pokedex,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+)
 
 const styles = {
   sidebar: {
@@ -61,26 +71,28 @@ class App extends Component {
     const spinner = <i className='fa fa-circle-o-notch fa-spin fa-3x fa-fw' />
 
     return (
-      <div>
-        <div style={styles.sidebar}>
-          {onLoad ? spinner : false}
-          <PokemonList
-            list={pokemonList}
-            onLoadMore={this.loadMore}
-            onClickPokemon={this.handleClickPokemon}
-          />
-        </div>
-        <div style={styles.content}>
-          {selectedPokemon ? (
-            <PokemonDetail
-              name={selectedPokemon.name}
-              weight={selectedPokemon.weight}
-              height={selectedPokemon.height}
-              sprites={selectedPokemon.sprites}
+      <Provider store={store}>
+        <div>
+          <div style={styles.sidebar}>
+            {onLoad ? spinner : false}
+            <PokemonList
+              list={pokemonList}
+              onLoadMore={this.loadMore}
+              onClickPokemon={this.handleClickPokemon}
             />
-          ) : null}
+          </div>
+          <div style={styles.content}>
+            {selectedPokemon ? (
+              <PokemonDetail
+                name={selectedPokemon.name}
+                weight={selectedPokemon.weight}
+                height={selectedPokemon.height}
+                sprites={selectedPokemon.sprites}
+              />
+            ) : null}
+          </div>
         </div>
-      </div>
+      </Provider>
     )
   }
 }

@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import Pokemon from './Pokemon'
+import { connect } from 'react-redux'
+
 const styles = {
   pokemon: {
     cursor: 'Pointer'
   }
 }
 
-export default class PokemonList extends Component {
+class PokemonList extends Component {
   constructor () {
     super()
     this.state = {
@@ -57,3 +59,15 @@ export default class PokemonList extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  const { PokemonList: {} } = state
+
+  return {}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PokemonList)
